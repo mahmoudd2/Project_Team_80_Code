@@ -6,14 +6,6 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-void delay()
-{
-    int secs = 1000000;
-    for (int i = 0; i < secs;i++)
-    {
-            //msh mehtagen haga hena.
-    }
-}
 
 typedef struct {
     int seconds;
@@ -80,7 +72,7 @@ void Tfunc1 (void*vargp)
 
     printf ("first thread id %lu\n", (unsigned long) id);
     printf("Doing some work...\n");
-    printf("Finishing up...\n");
+    printf("Finishing First Thread up...\n");
     
     Timestamp end = get_timestamp();
     printf("End Time: %d seconds, %d milliseconds, %ld microseconds\n", end.seconds, end.milliseconds, end.microseconds);
@@ -100,7 +92,7 @@ void Tfunc2 (void*vargp)
 
     printf ("second thread id %lu\n", (unsigned long) id);
     printf("Doing some work...\n");
-    printf("Finishing up...\n");
+    printf("Finishing Second Thread up...\n");
     
     Timestamp end = get_timestamp();
     printf("End Time: %d seconds, %d milliseconds, %ld microseconds\n", end.seconds, end.milliseconds, end.microseconds);
@@ -120,7 +112,7 @@ void Tfunc3 (void*vargp)
 
     printf ("third thread id %lu\n", (unsigned long) id);
     printf("Doing some work...\n");
-    printf("Finishing up...\n");
+    printf("Finishing Third Thread up...\n");
     
     Timestamp end = get_timestamp();
     printf("End Time: %d seconds, %d milliseconds, %ld microseconds\n", end.seconds, end.milliseconds, end.microseconds);
@@ -140,7 +132,7 @@ void Tfunc4 (void*vargp)
 
     printf ("Fourth thread id %lu\n", (unsigned long) id);
     printf("Doing some work...\n");
-    printf("Finishing up...\n");
+    printf("Finishing Fourth Thread up...\n");
     
     Timestamp end = get_timestamp();
     printf("End Time: %d seconds, %d milliseconds, %ld microseconds\n", end.seconds, end.milliseconds, end.microseconds);
@@ -165,10 +157,10 @@ int main() {
     pthread_attr_setschedparam(&attr, &param);
 
 
-    pthread_create(&threads[1], &attr, Tfunc1,&threadsIDS[i]);
-    pthread_create(&threads[2], &attr, Tfunc2,&threadsIDS[i]); 
-    pthread_create(&threads[3], &attr, Tfunc3,&threadsIDS[i]); 
-    pthread_create(&threads[4], &attr, Tfunc4,&threadsIDS[i]); 
+    pthread_create(&threads[1], &attr, Tfunc1,&threadsIDS[1]);
+    pthread_create(&threads[2], &attr, Tfunc2,&threadsIDS[2]); 
+    pthread_create(&threads[3], &attr, Tfunc3,&threadsIDS[3]); 
+    pthread_create(&threads[4], &attr, Tfunc4,&threadsIDS[4]); 
     
 
     // Wait for all threads to finish

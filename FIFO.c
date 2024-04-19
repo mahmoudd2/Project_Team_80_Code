@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <pthread.h>
 #include <sched.h>
@@ -153,6 +154,12 @@ int main() {
 
     pthread_attr_init(&attr);
     pthread_attr_setschedpolicy(&attr, SCHED_FIFO);
+    
+    cpu_set_t cpuset;
+    CPU_ZERO (&cpuset) ;
+    CPU_SET(0, &cpuset); // Set core number here
+    pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
+
     param.sched_priority = sched_get_priority_max(SCHED_FIFO);
     pthread_attr_setschedparam(&attr, &param);
 
@@ -171,7 +178,7 @@ int main() {
     pthread_join(threads[4], NULL);
 
 
-    printf("Main thread: All threads finished.\n");
+    printf("All threads finished.\n");
     return 0;
 }
 

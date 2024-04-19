@@ -37,10 +37,7 @@ void *threadFunction(void *vargp) {
 
 int main() {
     pthread_t threads[4];
-<<<<<<< HEAD
     int threadsIDS[4];
-=======
->>>>>>> MAHMOUD
     int i;
     pthread_attr_t attr;
     struct sched_param param;
@@ -67,22 +64,14 @@ int main() {
 
 
     for(i = 0; i < 4; i++) {
-<<<<<<< HEAD
         threadsIDS[i] = i;
         pthread_create(&threads[i], &attr, threadFunction,&threadsIDS[i]);
         
-=======
-        pthread_create(&threads[i], &attr, threadFunction,&i);
->>>>>>> MAHMOUD
     }
 
     // Wait for all threads to finish
     for(i = 0; i < 4; i++) {
         pthread_join(threads[i], NULL);
-<<<<<<< HEAD
-=======
-        
->>>>>>> MAHMOUD
     }
     printf("Main thread: All threads finished.\n");
     return 0;

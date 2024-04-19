@@ -4,23 +4,40 @@
 #include <errno.h>
 #include <unistd.h> // For usleep function
 
+void delay()
+{
+    int seconds = 1000000;  // 1 sec
+    for (int i = 0; i < seconds; i++)
+    {
+        //msh mehtagen n3ml haga hena it counts lw7dahaa
+    }
+}
+
+
+
+
 void *threadFunction(void *vargp) {
   int *threadId = (int *)vargp;
  
-  printf("Inside the %d thread\n",*threadId);
+ // printf("Inside the %d thread:\n",*threadId);
   pthread_t id = pthread_self();
-  printf("Thread ID: %lu Hello from thread!\n", (unsigned long) id);
-// usleep(1000000); // Simulate some work (sleep for 1 second)
-  printf("Thread ID: %lu Doing some work...\n", (unsigned long) id);
-  usleep(1000000); // Simulate some work (sleep for 1 second)
-  printf("Thread ID: %lu Finishing up...\n", (unsigned long) id);
+ // printf("Thread ID: %lu Hello from thread!\n", (unsigned long) id);
+  printf("Thread ID: %d Hello from thread!\n", *threadId);
+
+ // delay();
+  printf("Thread ID: %d Doing some work...\n", *threadId);
+  delay();
+  //printf("Inside the %d thread:\n",*threadId);
+  printf("Thread ID: %d Finishing up...\n", *threadId);
    
   printf("\n");
+  pthread_exit(NULL);
   return NULL;
 }
 
 int main() {
     pthread_t threads[4];
+    int threadsIDS[4];
     int i;
     pthread_attr_t attr;
     struct sched_param param;
@@ -47,13 +64,14 @@ int main() {
 
 
     for(i = 0; i < 4; i++) {
-        pthread_create(&threads[i], &attr, threadFunction,&i);
+        threadsIDS[i] = i;
+        pthread_create(&threads[i], &attr, threadFunction,&threadsIDS[i]);
+        
     }
 
     // Wait for all threads to finish
     for(i = 0; i < 4; i++) {
         pthread_join(threads[i], NULL);
-        
     }
     printf("Main thread: All threads finished.\n");
     return 0;

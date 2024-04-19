@@ -13,7 +13,7 @@ void delay(char policy)
         int secs = 1000000;
         for (int i = 0; i < secs;i++)
         {
-
+            //msh mehtagen haga hena.
         }
     }
 }
@@ -46,17 +46,17 @@ void *threadFunction(void *vargp) {
     ThreadParams *params = (ThreadParams *)vargp;
     int *param1 = params->param1;
     char param2 = params->param2;
-    print_timestamp("",param1);
 
     pthread_t id = pthread_self();
+    print_timestamp("",id); ///hena el moshkela bta3t el params.
 
-    printf("Thread ID: %d Hello from thread!\n", param1);
+    printf("Thread ID: %d Hello from thread!\n", param1);// w fe kol el print statments.
     printf("Thread ID: %d Doing some work...\n", param1);
-    delay(param2);
+    delay(param2);//param2 deh el policy el hnkhtrha.
     printf("Thread ID: %d Finishing up...\n", param1);
     printf("\n");
     pthread_exit(NULL);
-    print_timestamp("",param1);
+    print_timestamp("",id);
 
     return NULL;
 }
@@ -106,13 +106,6 @@ int main() {
             policy = SCHED_RR;
     }
 
-    // Initialize thread attributes
-  //  pthread_attr_init(&attr);
-    
-    // Set scheduling policy to SCHED_RR
- //   pthread_attr_setschedpolicy(&attr, policy);
-    
-    // Set priority for threads
     param.sched_priority = 10; // Set priority to 10
     pthread_attr_setschedparam(&attr, &param);
   // Get the time quantum for Round Robin scheduling
@@ -133,8 +126,7 @@ int main() {
         params.param1 = param1;
         params.param2 = param2;
 
-        pthread_create(&threads[i], &attr, threadFunction,(void *)&params);
-        
+        pthread_create(&threads[i], &attr, threadFunction,&threadsIDS[i]); // na2esna el passing bta3 el parameters be el tare2a el sah. w nfham eh el far2 lma ahot el attr aw el params
     }
 
     // Wait for all threads to finish
@@ -146,3 +138,6 @@ int main() {
     printf("Main thread: All threads finished.\n");
     return 0;
 }
+
+//leh fifo msh shgala sah hal 3shan el params wala 3shan el delay.
+//mehtagen n3rf el start time w el end time mehtagen n show it wala el excution bs
